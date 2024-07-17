@@ -7,7 +7,7 @@ export default function PartViewDetail() {
         state: {
             part,
             part: {
-                id,
+                // id,
                 partNumberManufacturer,
                 partNumberDON1eng,
                 partImg,
@@ -24,7 +24,7 @@ export default function PartViewDetail() {
                 positionImg01,
                 positionImg02,
                 barcodeImg,
-                price,            
+                // price,            
                 description, 
                 nodte,
             },
