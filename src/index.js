@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import ProtectedRoute from './pages/ProtectedRoute';
+// import ProtectedRoute from './pages/ProtectedRoute';
 import App from './App';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
@@ -34,6 +34,7 @@ import PersonList from './pages/person/PersonList';
 import PersonModify from './pages/person/PersonModify';
 import PersonNew from './pages/person/PersonNew';
 import PersonView from './pages/person/PersonView';
+import { ChakraProvider } from '@chakra-ui/react';
 
 
 // const PATH_DAILYWORKS = '/pages/dailyworks';
@@ -54,105 +55,105 @@ const router = createBrowserRouter(
         // Parts --------------------------------------
         {
           path: `/partsnew`,
-          element: (<ProtectedRoute requireAdmin><PartsNew /></ProtectedRoute>),
+          element: <PartsNew />,
         },
         {
           path: `/partsdelete`,
-          element: (<ProtectedRoute requireAdmin><PartsDelete /></ProtectedRoute>),
+          element: <PartsDelete />,
         },
         {
           path: `/partsmodify/:id`,
-          element: (<ProtectedRoute requireAdmin><PartsModify /></ProtectedRoute>),
+          element: <PartsModify />,
         },
         {
           path: `/partsviewcard`,
-          element: (<ProtectedRoute><PartViewCard /></ProtectedRoute>),
+          element: <PartViewCard />,
         },
         {
           path: `/partviewdetail/:id`,
-          element: (<ProtectedRoute><PartViewDetail /></ProtectedRoute>),
+          element: <PartViewDetail />,
         },
         {
           path: `/partslist`,
-          element: (<ProtectedRoute><PartsList /></ProtectedRoute>),
+          element: <PartsList />,
         },
         
         // Inventory --------------------------------------
         {
           path: `/invencorrection`,
-          element: (<ProtectedRoute><InvenCorrection /></ProtectedRoute>),
+          element: <InvenCorrection />,
         },
         {
           path: `/invendelete`,
-          element: (<ProtectedRoute><InvenDelete /></ProtectedRoute>),
+          element: <InvenDelete />,
         },
         {
           path: `/inveninbound`,
-          element: (<ProtectedRoute><InvenInbound /></ProtectedRoute>),
+          element: <InvenInbound />,
         },
         {
           path: `/invenlist`,
-          element: (<ProtectedRoute><InvenList /></ProtectedRoute>),
+          element: <InvenList />,
         },
         {
           path: `/invenmodify`,
-          element: (<ProtectedRoute><InvenModify /></ProtectedRoute>),
+          element: <InvenModify />,
         },
         {
           path: `/invenoutbound`,
-          element: (<ProtectedRoute><InvenOutbound /></ProtectedRoute>),
+          element: <InvenOutbound />,
         },
         {
           path: `/invenview`,
-          element: (<ProtectedRoute><InvenView /></ProtectedRoute>),
+          element: <InvenView />,
         },
 
         // DailyWorks --------------------------------------
         {
           path: `/dailydelete`,
-          element: (<ProtectedRoute><DailyWorksDelete /></ProtectedRoute>),
+          element: <DailyWorksDelete />,
         },
         {
           path: `/dailylist`,
-          element: (<ProtectedRoute><DailyWorksList /></ProtectedRoute>),
+          element: <DailyWorksList />,
         },
         {
           path: `/dailymodify`,
-          element: (<ProtectedRoute><DailyWorksModify /></ProtectedRoute>),
+          element: <DailyWorksModify />,
         },
         {
           path: `/dailynew`,
-          element: (<ProtectedRoute><DailyWorksNew /></ProtectedRoute>),
+          element: <DailyWorksNew />,
         },
         {
           path: `/dailyview`,
-          element: (<ProtectedRoute><DailyWorksView /></ProtectedRoute>),
+          element: <DailyWorksView />,
         },
 
         // Person --------------------------------------
         {
           path: `/persondelete`,
-          element: (<ProtectedRoute requireAdmin><PersonDelete /></ProtectedRoute>),
+          element: <PersonDelete />,
         },
         {
           path: `/personholding`,
-          element: (<ProtectedRoute requireAdmin><PersonHolding /></ProtectedRoute>),
+          element: <PersonHolding />,
         },
         {
           path: `/personlist`,
-          element: (<ProtectedRoute requireAdmin><PersonList /></ProtectedRoute>),
+          element: <PersonList />,
         },
         {
           path: `/personmodify`,
-          element: (<ProtectedRoute requireAdmin><PersonModify /></ProtectedRoute>),
+          element: <PersonModify />,
         },
         {
           path: `/personnew`,
-          element: (<ProtectedRoute requireAdmin><PersonNew /></ProtectedRoute>),
+          element: <PersonNew />,
         },
         {
           path: `/personview`,
-          element: (<ProtectedRoute requireAdmin><PersonView /></ProtectedRoute>),
+          element: <PersonView />,
         },
       ],
     },
@@ -162,7 +163,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ChakraProvider>
+      <RouterProvider router={router} />
+    </ChakraProvider>
   </React.StrictMode>
 );
 
