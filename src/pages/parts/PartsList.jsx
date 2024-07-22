@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
-import PartsListTable from '../../components/PartsListTable';
+// import PartsListTable from '../../components/PartsListTable';
 
 export default function PartsList() {
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ export default function PartsList() {
                     onClick={() => {navigate('/partsviewcard')}} />
                 
             </div>
-            <div><PartsListTable /></div>
+            {/* <div><PartsListTable /></div> */}
         </div>
     );
 }
