@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { addNewPart } from '../../api/firebase';
 import { uploadImage } from '../../api/uploader';
 // import Button from '../../components/ui/Button';
-import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
+import { Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
 import { Form } from 'react-router-dom';
 
 export default function PartsNew() {
@@ -84,12 +84,11 @@ export default function PartsNew() {
         
 
         
-        return (
-            <Box >
-            {success && <p className='my-2'>🛜 {success}</p>}
+    return (
+        <>
             <h2 className='text-2xl font-bold my-4'>새로운 부품 등록</h2>
             <Form onSubmit={handleSubmit}>
-                {setPartImgFile(part.partImgURL)}        
+                {/* {setPartImgFile(part.partImgURL)}         */}
                 {partImgFile && <img className='w-96 mx-auto mb-2' src={URL.createObjectURL(partImgFile)} alt='local file' />}
                 <FormControl pb="40px">
                     <FormLabel>부품 이미지</FormLabel>
@@ -100,7 +99,7 @@ export default function PartsNew() {
                         variant='flushed'
                         size='md'
                         onChange={handleChangePartImgFile} 
-                    />
+                        />
                     <FormHelperText>부품의 이미지를 선택해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -126,7 +125,7 @@ export default function PartsNew() {
                         value={part.partNumberDON1eng ?? ''}
                         placeholder='DON1 부품번호'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>DON1 센터에서 부여한 부품관리 번호를 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -135,7 +134,7 @@ export default function PartsNew() {
                         size='lg'
                         bg='white'
                         onChange={handleChange}
-                    >
+                        >
                         <option value=''>--- category ---</option>
                         <option value='Printer'>Printer</option>
                         <option value='SideConveyor'>SideConveyor</option>
@@ -158,7 +157,7 @@ export default function PartsNew() {
                         size='lg'
                         bg='white'
                         onChange={handleChange}
-                    >
+                        >
                         <option value=''>--- autobagModel ---</option>
                         <option value='Common'>Common</option>
                         <option value='BL-Line'>BL-Line</option>
@@ -180,7 +179,7 @@ export default function PartsNew() {
                         value={part.partNameEng ?? ''}
                         placeholder='부품이름(Eng)'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>부품의 영문이름을 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -193,7 +192,7 @@ export default function PartsNew() {
                         value={part.partNameKor ?? ''}
                         placeholder='부품이름(kor)'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>부품의 한글이름을 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -206,7 +205,7 @@ export default function PartsNew() {
                         value={part.manufacturer ?? ''}
                         placeholder='제조사명'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>제조사명을 입력하세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -219,7 +218,7 @@ export default function PartsNew() {
                         value={part.modelNumber ?? ''}
                         placeholder='부품 모델번호'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>부품의 모델번호를 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -232,7 +231,7 @@ export default function PartsNew() {
                         value={part.usePosition ?? ''}
                         placeholder='부품의 사용 위치'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>부품이 사용되는 위치를 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -245,7 +244,7 @@ export default function PartsNew() {
                         value={part.size ?? ''}
                         placeholder='부품 size'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>부품의 사이즈를 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -258,7 +257,7 @@ export default function PartsNew() {
                         value={part.needQty ?? ''}
                         placeholder='필요 수량'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>기계에 들어가는 부품의 수량을 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -271,12 +270,12 @@ export default function PartsNew() {
                         value={part.recommendedReplacementCycle ?? ''}
                         placeholder='사용연한'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>부품의 사용연한(부품의 적정 교체시기)를 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl py="40px">
                     <FormLabel>사용 위치 사진 (1/2)</FormLabel>
-                    {setPosition01ImgFile(part.position01ImgURL)} 
+                    {/* {setPosition01ImgFile(part.position01ImgURL)}  */}
                     {position01ImgFile && <img src={URL.createObjectURL(position01ImgFile)} alt='position01Img local file' />}
                     <Input 
                         type="file" 
@@ -290,7 +289,7 @@ export default function PartsNew() {
                 </FormControl>
                 <FormControl py="40px">
                     <FormLabel>사용 위치 사진 (2/2)</FormLabel>
-                    {setPosition02ImgFile(part.position02ImgURL)}
+                    {/* {setPosition02ImgFile(part.position02ImgURL)} */}
                     {position02ImgFile && <img src={URL.createObjectURL(position02ImgFile)} alt='position01Img local file' />}
                     <Input 
                         type="file" 
@@ -299,12 +298,12 @@ export default function PartsNew() {
                         variant='flushed'
                         size='md'
                         onChange={handleChangePosition02ImgFile} 
-                    />
+                        />
                     <FormHelperText>부품이 사용되는 위치 사진을 입력하세요(2/2).</FormHelperText>
                 </FormControl>
                 <FormControl py="40px">
                     <FormLabel>바코드</FormLabel>
-                    {setBarcodeImgFile(part.barcodeImgURL)}
+                    {/* {setBarcodeImgFile(part.barcodeImgURL)} */}
                     {barcodeImgFile && <img src={URL.createObjectURL(barcodeImgFile)} alt='position01Img local file' />}
                     <Input 
                         type="file" 
@@ -313,7 +312,7 @@ export default function PartsNew() {
                         variant='flushed'
                         size='md'
                         onChange={handleChangeBarcodeImgFile} 
-                    />
+                        />
                     <FormHelperText>바코드 사진을 선택하세요!</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -326,7 +325,7 @@ export default function PartsNew() {
                         value={part.price ?? ''}
                         placeholder='가격'
                         onChange={handleChange}
-                    />
+                        />
                     <FormHelperText color='gray.400'>부품의 가격을 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
@@ -351,8 +350,10 @@ export default function PartsNew() {
                         value={part.note ?? ''}
                         placeholder='기타 메모'
                         onChange={handleChange}
-                    />
+                        />
                 </FormControl>
+                
+                {success && <p className='my-2'>🛜 {success}</p>}
 
                 <Button 
                     w='full'
@@ -360,11 +361,11 @@ export default function PartsNew() {
                     colorScheme='purple'
                     disabled={isUploading} 
                     type='submit' 
-                >
+                    >
                     {isUploading ? '업로드 중...' : '제품 등록하기'}
                 </Button>
             </Form>
-        </Box>
+        </>
     );
 }
 
