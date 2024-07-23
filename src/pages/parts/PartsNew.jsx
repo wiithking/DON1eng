@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { addNewPart } from '../../api/firebase';
 import { uploadImage } from '../../api/uploader';
 // import Button from '../../components/ui/Button';
-import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea, useToast } from '@chakra-ui/react';
 import { Form } from 'react-router-dom';
 
 export default function PartsNew() {
@@ -18,7 +18,18 @@ export default function PartsNew() {
     const [barcodeImgURL, setBarcodeImgURL] = useState('');
 
     const [isUploading, setIsUploading] = useState(false);
-    const [success, setSuccess] =useState();
+    // const [success, setSuccess] =useState();
+    const toast = useToast();
+
+    const showToast = () => {
+        toast({
+            title: 'Success!',
+            description: '성공적으로 추가되었습니다!',
+            duration: 4000,
+            isClosable: true,
+            position: 'bottom'
+        })
+    }
 
     const handleChangePartImgFile = (e) => {
         const {files} =e.target;
@@ -70,12 +81,7 @@ export default function PartsNew() {
             .finally( () => setIsUploading(false) );
             
             addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL)
-            .then( () => {
-                setSuccess('성공적으로 부속이 등록되었습니다.');
-                setTimeout( () => {
-                    setSuccess(null);
-                }, 4000);
-            });
+            .then({ showToast });
         };
         
         
@@ -353,7 +359,7 @@ export default function PartsNew() {
                         />
                 </FormControl>
                 
-                {success && <p className='my-2'>🛜 {success}</p>}
+                {/* {success && <p className='my-2'>🛜 {success}</p>} */}
 
                 <Button 
                     w='full'

@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { getParts } from '../../api/firebase';
 // import PartCard from '../../components/PartCard';
-import { Card, CardBody, CardFooter, CardHeader, Heading, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import { Button, Card, CardBody, CardFooter, CardHeader, Heading, HStack, Image, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
 
 export default function PartViewCard() {
     const {
@@ -22,21 +23,36 @@ export default function PartViewCard() {
                 {parts && parts.map(part => (
                     <Card key={part.id}>
                         <CardHeader>
-                            <Heading as="h3" size="sm">{part.partNameKor}</Heading>
+                            <Heading as="h3" size="lg">{part.partNameKor}</Heading>
                             <Image
                                 src={part.partImg}
                                 alt={part.partNameEng} 
                             />
-
                         </CardHeader>
 
                         <CardBody>
-                            <Text>{part.category}</Text>
+                            <List>
+                                <ListItem>
+                                    <Text>분류: {part.category}</Text>
+                                </ListItem>
+                                <ListItem>
+                                    <Text>제조사: {part.manufacture}</Text> 
+                                </ListItem>
+                                <ListItem>
+                                    <Text>관리번호: {part.partNumberDON1eng}</Text>
+                                </ListItem>
+                            </List>
                         </CardBody>
 
                         <CardFooter>
-                            <Text>{part.manufacture}</Text>
-                            <Text>{part.partNumberDON1eng}</Text>
+                            <HStack>
+                                <Button
+                                    leftIcon={<EditIcon />}
+                                    colorScheme='purple'
+                                >
+                                    수정
+                                </Button>
+                            </HStack>
                         </CardFooter>
                     </Card>
                 ))}

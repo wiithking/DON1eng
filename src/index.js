@@ -13,7 +13,6 @@ import PartsModify from './pages/parts/PartsModify'
 import PartViewCard from './pages/parts/PartViewCard'
 import PartViewDetail from './pages/parts/PartViewDetail'
 import PartsList from './pages/parts/PartsList';
-import PartNewOne from './pages/parts/PartNewOne';
 //Inventory
 import InvenCorrection from './pages/inventory/InvenCorrection';
 import InvenDelete from './pages/inventory/InvenDelete';
@@ -84,11 +83,7 @@ const router = createBrowserRouter(
           path: `/partslist`,
           element: <PartsList />,
         },
-        {
-          path: `/partsnewone`,
-          element: <PartNewOne />,
-        },
-        
+      
         // Inventory --------------------------------------
         {
           path: `/invencorrection`,
