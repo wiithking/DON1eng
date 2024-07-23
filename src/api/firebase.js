@@ -88,16 +88,32 @@ export async function addNewPart(part, partImgURL, position01ImgURL, position02I
     })
 }
 
+
+
+export async function addTest(testData) {
+    // const id = uuid();
+    return set(ref(database, `test/${testData.testId}`), {
+        ...testData
+    })
+}
+
 // 부품목록 불러 오는 function
 export async function getParts() {
     return get(ref(database, 'parts'))
-        .then(snapshot => {
-            if(snapshot.exists()) {
-                const data =  Object.values(snapshot.val());
-                return data;
-            }
-            return [];
-    })
+            .then(
+                (snapshot) => {
+                    console.log('t');
+                    if(snapshot.exists()) {
+                        return Object.values(snapshot.val());
+                    } else {
+                        return [];
+                    }
+                    
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            });
 }
 
 

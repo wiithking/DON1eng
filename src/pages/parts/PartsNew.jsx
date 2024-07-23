@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { addNewPart } from '../../api/firebase';
 import { uploadImage } from '../../api/uploader';
 // import Button from '../../components/ui/Button';
-import { Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
 import { Form } from 'react-router-dom';
 
 export default function PartsNew() {
@@ -85,7 +85,7 @@ export default function PartsNew() {
 
         
     return (
-        <>
+        <Box>
             <h2 className='text-2xl font-bold my-4'>새로운 부품 등록</h2>
             <Form onSubmit={handleSubmit}>
                 {/* {setPartImgFile(part.partImgURL)}         */}
@@ -365,7 +365,7 @@ export default function PartsNew() {
                     {isUploading ? '업로드 중...' : '제품 등록하기'}
                 </Button>
             </Form>
-        </>
+        </Box>
     );
 }
 
