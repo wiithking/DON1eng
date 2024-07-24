@@ -3,8 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getParts } from "../api/firebase";
 import { Text } from "@chakra-ui/react";
-// import { useMemo } from "react";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+// import { useMemo } from "react";
+// import testData from './wiithking/data.json';
 
 export default function PartsListTable() {
     const {
@@ -16,6 +17,10 @@ export default function PartsListTable() {
         queryFn: getParts
     });
     const data = JSON.stringify(parts);
+    // const data = useMemo(() => dataJSON, []);
+
+    // const data = useMemo(() => testData, [])
+
     const columns = [
         {
             header: 'Part Number',
@@ -63,8 +68,8 @@ export default function PartsListTable() {
         <>
             {isLoading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
-            <Text>{console.log(parts)}</Text>
-            <Text>{console.log(data)}</Text>
+            {/* {console.log(parts)} */}
+            {console.log(data)}
             <table>
                 {table.getHeaderGroups().map(headerGroup => (
                     <tr key={headerGroup.id}>
@@ -82,7 +87,8 @@ export default function PartsListTable() {
                     {table.getRowModel().rows.map((row) => (
                         <tr key={row.id}>
                             {row.getVisibleCells().map((cell) => (
-                                <td>
+                                <td key={cell.id}>
+                                    {/* {console.log(cell.id)} */}
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()
@@ -91,9 +97,6 @@ export default function PartsListTable() {
                             ))}
                         </tr>
                     ))}
-                    <tr>
-                        <td>1</td>
-                    </tr>
                 </tbody>
             </table>
         </>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Flex, Heading, Image, List, ListItem, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, Heading, HStack, Image, List, ListItem, Text } from '@chakra-ui/react';
 import { delPart } from '../../api/firebase';
+import { ChatIcon, EditIcon } from '@chakra-ui/icons';
 
 export default function PartViewDetail() {
     const {
@@ -98,10 +99,12 @@ export default function PartViewDetail() {
                 <Image src={positionImg02} alt='position 02' />
                 
             </Flex>
-            <Flex>
-                <Text>{description}</Text>
-                <Text>{note}</Text>
-            </Flex>
+            <Grid>
+                <Text mt='40px' mb='10px'><ChatIcon /> [Description]</Text>
+                <Text borderRadius='10px' border='1px' borderColor='gray.400' p='20px' w='full'>{description}</Text>
+                <Text mt='40px' mb='10px'><EditIcon /> Memo</Text>
+                <Text borderRadius='10px' border='1px' borderColor='gray.400' p='20px' w='full'>{note}</Text>
+            </Grid>
         </>
     );
 }

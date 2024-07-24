@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 //Parts
 import PartsNew from './pages/parts/PartsNew';
-import PartsDelete from './pages/parts/PartsDelete'
 import PartsModify from './pages/parts/PartsModify'
 import PartViewCard from './pages/parts/PartViewCard'
 import PartViewDetail from './pages/parts/PartViewDetail'
@@ -62,10 +61,6 @@ const router = createBrowserRouter(
         {
           path: `/partsnew`,
           element: <PartsNew />,
-        },
-        {
-          path: `/partsdelete`,
-          element: <PartsDelete />,
         },
         {
           path: `/partsmodify/:id`,
