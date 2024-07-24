@@ -19,7 +19,7 @@ export default function Navbar() {
     // const { user, login, logout } = useAuthContext();
 
     return (
-        <Flex as="nav" p="10px" alignItems="center" gap="10px">
+        <Flex mb='40px' as="nav" p="10px" pb='30px' alignItems="center" gap="10px" borderBottom='2px' borderColor='gray.300'>
             <Heading as="h1">DON1 eng</Heading>
             <Spacer />
 

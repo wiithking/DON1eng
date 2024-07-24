@@ -8,7 +8,7 @@ import {
     signOut,
     onAuthStateChanged
     } from "firebase/auth";
-import { getDatabase, ref, set, get } from "firebase/database";
+import { getDatabase, ref, set, get, remove } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,6 +20,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
+
+
 
 
 export function login() {
@@ -102,7 +104,7 @@ export async function getParts() {
     return get(ref(database, 'parts'))
             .then(
                 (snapshot) => {
-                    console.log('t');
+                    // console.log('t');
                     if(snapshot.exists()) {
                         return Object.values(snapshot.val());
                     } else {
@@ -116,7 +118,17 @@ export async function getParts() {
             });
 }
 
-
+//부품 삭제
+export async function delPart(part) {
+    remove(ref(database, `parts/${part.id}`))
+    .then( () => {
+        alert(`Data was deleted!`);
+    })
+    .catch( (error) => {
+        alert("Unsuccessful");
+        console.log(error);
+    })
+}
 
 
 // json 파일을 db로 옮김

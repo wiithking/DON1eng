@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { getParts } from '../../api/firebase';
 // import PartCard from '../../components/PartCard';
-import { Button, Card, CardBody, CardFooter, CardHeader, Heading, HStack, Image, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
-import { EditIcon } from '@chakra-ui/icons';
+import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Heading, Image, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { EditIcon, ExternalLinkIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 export default function PartViewCard() {
     const {
@@ -14,6 +15,8 @@ export default function PartViewCard() {
         queryKey: ['parts'], 
         queryFn: getParts
         });
+    
+    const navigate = useNavigate();
 
     return (
         <>
@@ -21,7 +24,7 @@ export default function PartViewCard() {
                 {isLoading && <Text>Loading...</Text>}
                 {error && <Text>{error}</Text>}
                 {parts && parts.map(part => (
-                    <Card key={part.id}>
+                    <Card key={part.id} >
                         <CardHeader>
                             <Heading as="h3" size="lg">{part.partNameKor}</Heading>
                             <Image
@@ -45,14 +48,24 @@ export default function PartViewCard() {
                         </CardBody>
 
                         <CardFooter>
-                            <HStack>
+                            <Flex w='full' justify='center' gap='10px'>
                                 <Button
                                     leftIcon={<EditIcon />}
                                     colorScheme='purple'
                                 >
                                     수정
                                 </Button>
-                            </HStack>
+                                {/* <Spacer /> */}
+                                <Button
+                                    leftIcon={<ExternalLinkIcon />}
+                                    colorScheme='purple'
+                                    onClick={ () => {
+                                        navigate(`/partviewdetail/${part.id}`, { state: {part} });
+                                    }}
+                                >
+                                    자세히
+                                </Button>
+                            </Flex>
                         </CardFooter>
                     </Card>
                 ))}

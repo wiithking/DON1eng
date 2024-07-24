@@ -3,7 +3,7 @@ import { addNewPart } from '../../api/firebase';
 import { uploadImage } from '../../api/uploader';
 // import Button from '../../components/ui/Button';
 import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea, useToast } from '@chakra-ui/react';
-import { Form } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 
 export default function PartsNew() {
     const [part, setPart] = useState({});
@@ -20,6 +20,7 @@ export default function PartsNew() {
     const [isUploading, setIsUploading] = useState(false);
     // const [success, setSuccess] =useState();
     const toast = useToast();
+    const navigate = useNavigate()
 
     const showToast = () => {
         toast({
@@ -82,6 +83,8 @@ export default function PartsNew() {
             
             addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL)
             .then({ showToast });
+
+            navigate('/partsviewcard')
         };
         
         

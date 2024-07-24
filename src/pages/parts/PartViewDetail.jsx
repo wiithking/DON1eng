@@ -1,14 +1,15 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Button from '../../components/ui/Button';
+import { Button, Flex, Heading, Image, List, ListItem, Text } from '@chakra-ui/react';
+import { delPart } from '../../api/firebase';
 
 export default function PartViewDetail() {
     const {
         state: {
             part,
             part: {
-                // id,
-                partNumberManufacturer,
+                id,
+                // partNumberManufacturer,
                 partNumberDON1eng,
                 partImg,
                 category,
@@ -26,7 +27,7 @@ export default function PartViewDetail() {
                 barcodeImg,
                 // price,            
                 description, 
-                nodte,
+                note,
             },
         },
     } = useLocation();
@@ -34,45 +35,73 @@ export default function PartViewDetail() {
 
     return (
         <>
-            <p className='px-2 pt-6'>{partNumberDON1eng}({partNumberManufacturer})</p>
-            <section className='flex flex-col md:flex-row p-4'>
+            <Text ml='40px' fontSize='3xl'>{partNumberDON1eng}</Text>
+            <Text ml='40px' fontSize='3xl'>{positionImg01}</Text>
+
+            <Flex className='flex flex-col md:flex-row items-center '>
+                <Heading fontSize='4xl' borderBottom='1px'>{partNameKor}</Heading>
+                <Text>({partNameEng})</Text>
+            </Flex>
+            <Flex className='flex flex-col md:flex-row p-4'>
                 <div className='px-4 basis-5/12'>
                     <img src={partImg} alt={partNameKor} />
                 </div>
                 <div className='w-full basis-7/12 flex flex-col p-4'>
-                    <div className='flex flex-col md:flex-row items-center '>
-                        <h2 className='text-3xl font-bold py-2 border-b border-gray-400'>{partNameKor}</h2>
-                        <p>({partNameEng})</p>
-                    </div>
-                    <div className='flex flex-row md:flex-col py-4 text-2xl'>
-                        <p className='px-2 font-bold '>{modelNumber}</p>
-                        <p className='px-2 text-gray-600'>{manufacturer}</p>
-                    </div>
-                    <p className='px-2 text-xl'>{category}</p>
-                    <p className='px-2 text-xl'>{autobagModel}</p>
-                    
-                    <p className='px-2 text-xl'>size: {size} / needQty: {needQty} / cycle: {recommendedReplacementCycle}</p>
-                    <p className='p-2 mb-5 text-xl'>사용위치: {usePosition}</p>
-                    <p className='w-full px-2 text-xl pt-5 border-t border-gray-400'>{description}</p>
-                    <p className='w-full px-2 text-xl pt-5'>{nodte}</p>
-                    <img className='size-80' src={barcodeImg} alt='barcode' />
-                    <Button 
-                        text={'제품 수정하기'}
-                        cssTextColor={'text-white'} 
-                        cssBgColor={'bg-brand'} 
-                        cssPadding={'py-2 px-4'} 
-                        cssRounded={'rounded-lg'} 
-                        fontSizer={'text-1xl'}
-                        onClick={() => {navigate(`/partsmodify/id`, { state: { part } } )}}
-                    />
+                    <List>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>category: {category}</Text>
+                        </ListItem>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>모델번호: {modelNumber}</Text>
+                        </ListItem>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>제조사: {manufacturer}</Text>
+                        </ListItem>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>오토백: {autobagModel}</Text>
+                        </ListItem>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>size: {size}</Text>
+                        </ListItem>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>needQty: {needQty}</Text>
+                        </ListItem>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>cycle: {recommendedReplacementCycle}</Text>
+                        </ListItem>
+                        <ListItem mb='10px'>
+                            <Text fontSize='lg'>UseAt: {usePosition}</Text>
+                        </ListItem>
+                    </List>
+                    <Image mb='40px' w='200px' src={barcodeImg} alt='barcode' />
+                    <Flex w='full' gap='5' mb='20px'>
+                        <Button
+                            colorScheme='purple'
+                            onClick={ () => {navigate(`/partsmodify/${id}`, { state: { part } } )}}
+                        >
+                            수정하기(Mod)
+                        </Button>
+                        <Button
+                            colorScheme='purple'
+                            onClick={ () => { 
+                                delPart(part);
+                                navigate('/partsviewcard');
+                            }}
+                        >
+                            삭제하기(Del)
+                        </Button>
+                    </Flex>
                 </div>
-            </section>
-            <section>
-                <div className='grid grid-cols-1 md:grid-cols-2'>
-                    <img className='w-full' src={positionImg01} alt='position 01' />
-                    <img className='w-full' src={positionImg02} alt='position 02' />
-                </div>
-            </section>
+            </Flex>
+            <Flex w='full'>
+                <Image src={positionImg01} alt='position 01' />
+                <Image src={positionImg02} alt='position 02' />
+                
+            </Flex>
+            <Flex>
+                <Text>{description}</Text>
+                <Text>{note}</Text>
+            </Flex>
         </>
     );
 }
