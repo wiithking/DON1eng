@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Flex, Grid, Heading, HStack, Image, List, ListItem, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, Heading, Image, List, ListItem, Text } from '@chakra-ui/react';
 import { delPart } from '../../api/firebase';
 import { ChatIcon, EditIcon } from '@chakra-ui/icons';
 

@@ -6,6 +6,7 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import Sidebar from './components/Sidebar';
 
 const queryClient = new QueryClient();
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
