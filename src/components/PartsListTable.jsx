@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getParts } from "../api/firebase";
-import { Table, Tbody, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Text, Th, Td, Thead, Tr } from "@chakra-ui/react";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 // import { useMemo } from "react";
 // import testData from './wiithking/testData.json';
@@ -15,11 +15,12 @@ export default function PartsListTable() {
         queryFn: getParts
     });
     // const data = JSON.stringify(parts);
+    // const data = JSON.parse(parts)
     const data = parts;
 
     console.log(data);
     // const data = testData;
-    // const data = useMemo(() => testData, [])
+    // const data = useMemo(() => parts, [])
 
     const columns = [
         {
@@ -58,6 +59,11 @@ export default function PartsListTable() {
             // cell: (props) => <p>{props.getValue()}</p>  
         }
     ];
+    // 
+    // 
+    // 
+
+
     // autobagModel
     // barcodeImg
     // category
@@ -78,6 +84,8 @@ export default function PartsListTable() {
     // recommendedReplacementCycle
     // size
     // usePosition
+
+
     const table = useReactTable({ 
         data, 
         columns,
@@ -106,12 +114,10 @@ export default function PartsListTable() {
                     ))}
                 </Thead>
                 <Tbody>
-                     {/* {table.getRowModel().rows.map((row) => (
+                     {table.getRowModel().rows.map(row => (
                         <Tr key={row.id}>
-                            {row.getVisibleCells().map((cell) => (
+                            {row.getVisibleCells().map(cell => (
                                 <Td key={cell.id}>
-                                    {console.log(`row.id: ${row.id}`)}
-                                    {console.log(cell)}
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()
@@ -119,7 +125,7 @@ export default function PartsListTable() {
                                 </Td>
                             ))}
                         </Tr>
-                    ))} */}
+                    ))}
                 </Tbody>
             </Table>
         </>

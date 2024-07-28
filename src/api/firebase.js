@@ -72,14 +72,13 @@ async function adminUser(user) {
 
 // 새로운 부품 등록하는 function
 export async function addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL) {
-    const id = uuid();
+    // const id = uuid();
     // console.log(`partImgURL: ${partImgURL}`);
     // console.log(`position01ImgURL: ${position01ImgURL}`);
     // console.log(`position02ImgURL: ${position02ImgURL}`);
     // console.log(`barcodeImgURL: ${barcodeImgURL}`);
-    return set(ref(database, `parts/${id}`), {
+    return set(ref(database, `parts/${part.partNumberDON1eng}`), {
         ...part,
-        id,
         partImg: partImgURL,
         position01Img: position01ImgURL,
         position02Img: position02ImgURL,
@@ -102,6 +101,24 @@ export async function addTest(testData) {
 // 부품목록 불러 오는 function
 export async function getParts() {
     return get(ref(database, 'parts'))
+            .then(
+                (snapshot) => {
+                    // console.log('t');
+                    if(snapshot.exists()) {
+                        return Object.values(snapshot.val());
+                    } else {
+                        return [];
+                    }
+                    
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            });
+}
+
+export async function getTest() {
+    return get(ref(database, 'mData'))
             .then(
                 (snapshot) => {
                     // console.log('t');

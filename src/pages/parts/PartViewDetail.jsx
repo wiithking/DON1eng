@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Flex, Grid, Heading, Image, List, ListItem, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, Heading, Image, Img, List, ListItem, Text } from '@chakra-ui/react';
 import { delPart } from '../../api/firebase';
 import { ChatIcon, EditIcon } from '@chakra-ui/icons';
 
@@ -37,7 +37,7 @@ export default function PartViewDetail() {
     return (
         <>
             <Text ml='40px' fontSize='3xl'>{partNumberDON1eng}</Text>
-            <Text ml='40px' fontSize='3xl'>{positionImg01}</Text>
+            {/* <Text ml='40px' fontSize='3xl'>{positionImg01}</Text> */}
 
             <Flex className='flex flex-col md:flex-row items-center '>
                 <Heading fontSize='4xl' borderBottom='1px'>{partNameKor}</Heading>
@@ -45,7 +45,7 @@ export default function PartViewDetail() {
             </Flex>
             <Flex className='flex flex-col md:flex-row p-4'>
                 <div className='px-4 basis-5/12'>
-                    <img src={partImg} alt={partNameKor} />
+                    <Image src={partImg} alt={partNameKor} />
                 </div>
                 <div className='w-full basis-7/12 flex flex-col p-4'>
                     <List>
@@ -95,9 +95,9 @@ export default function PartViewDetail() {
                 </div>
             </Flex>
             <Flex w='full'>
-                <Image src={positionImg01} alt='position 01' />
-                <Image src={positionImg02} alt='position 02' />
-                
+                <Img src={positionImg01} alt='position 01' />
+                <img src={positionImg02} alt='position 02' />
+                {console.log(part.positionImg01)}
             </Flex>
             <Grid>
                 <Text mt='40px' mb='10px'><ChatIcon /> [Description]</Text>

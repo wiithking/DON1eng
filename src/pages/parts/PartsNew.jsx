@@ -65,6 +65,7 @@ export default function PartsNew() {
 
         uploadImage(partImgFile)
             .then(url => {
+                console.log(partImgFile)
                 setPartImgURL(url);
             });
         uploadImage(position01ImgFile)
@@ -79,11 +80,11 @@ export default function PartsNew() {
             .then(url => {
                 setBarcodeImgURL(url);
             })
-            .finally( () => setIsUploading(false) );
+            //.finally( () => setIsUploading(false) );
             
-            addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL)
-            .then({ showToast });
-
+            addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
+            showToast();
+            console.log(partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
             navigate('/partsviewcard')
         };
         
