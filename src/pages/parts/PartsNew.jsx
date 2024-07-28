@@ -84,7 +84,7 @@ export default function PartsNew() {
             
             addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
             showToast();
-            console.log(partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
+            // console.log(partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
             navigate('/partsviewcard')
         };
         
