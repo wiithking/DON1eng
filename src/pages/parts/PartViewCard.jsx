@@ -23,8 +23,9 @@ export default function PartViewCard() {
             <SimpleGrid p="10px" spacing="10px" minChildWidth="250px">
                 {isLoading && <Text>Loading...</Text>}
                 {error && <Text>{error}</Text>}
+                {/* {console.log(parts)} */}
                 {parts && parts.map(part => (
-                    <Card key={part.id} >
+                    <Card key={part.partNumberDON1eng} >
                         <CardHeader>
                             <Heading as="h3" size="lg">{part.partNameKor}</Heading>
                             <Image
@@ -44,6 +45,9 @@ export default function PartViewCard() {
                                 <ListItem>
                                     <Text>관리번호: {part.partNumberDON1eng}</Text>
                                 </ListItem>
+                                <ListItem>
+                                    <Text>position01Img: {part.position01Img}</Text>
+                                </ListItem>
                             </List>
                         </CardBody>
 
@@ -60,7 +64,7 @@ export default function PartViewCard() {
                                     leftIcon={<ExternalLinkIcon />}
                                     colorScheme='purple'
                                     onClick={ () => {
-                                        navigate(`/partviewdetail/${part.id}`, { state: {part} });
+                                        navigate(`/partviewdetail/${part.partNumberDON1eng}`, { state: {part} });
                                     }}
                                 >
                                     자세히

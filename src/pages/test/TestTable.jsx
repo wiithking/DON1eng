@@ -1,30 +1,30 @@
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 // import React, { useMemo } from 'react';
 // import tData from '../../components/wiithking/MOCK_DATA.json';
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getTest } from '../../api/firebase';
 // import { useMemo } from 'react';
 
 export default function TestTable() {
     
-    const data = mData;
     // const data = useMemo( () => tData, [] );
     const {
-        // isLoading,
-        // error,
+        isLoading,
+        error,
         data: mData
     } = useQuery({
         queryKey: ['mData'],
         queryFn: getTest
     },[]
     )
-    // const data = JSON.stringify(mData);
-    // const data = getTest;
-    // const data = useMemo( () => {
+// const data = JSON.stringify(mData);
+// const data = getTest;
+// const data = useMemo( () => {
     //     return mData
     // }, [mData]);
     // const data = tData;
+    const data = mData;
 
     const columns = [
         {
@@ -70,6 +70,8 @@ export default function TestTable() {
 
     return (
         <div>
+            {isLoading && <Text>Loading...</Text>}
+            {error && <Text>{error}</Text>}
             <Table>
                 <Thead>
                     {testTable.getHeaderGroups().map(headerGroup =>

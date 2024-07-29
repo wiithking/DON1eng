@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Flex, Grid, Heading, Image, Img, List, ListItem, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, Heading, Image, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
 import { delPart } from '../../api/firebase';
 import { ChatIcon, EditIcon } from '@chakra-ui/icons';
 
@@ -23,8 +23,8 @@ export default function PartViewDetail() {
                 size,
                 needQty,
                 recommendedReplacementCycle,
-                positionImg01,
-                positionImg02,
+                position01Img,
+                position02Img,
                 barcodeImg,
                 // price,            
                 description, 
@@ -38,6 +38,7 @@ export default function PartViewDetail() {
         <>
             <Text ml='40px' fontSize='3xl'>{partNumberDON1eng}</Text>
             {/* <Text ml='40px' fontSize='3xl'>{positionImg01}</Text> */}
+            {console.log(part)}
 
             <Flex className='flex flex-col md:flex-row items-center '>
                 <Heading fontSize='4xl' borderBottom='1px'>{partNameKor}</Heading>
@@ -94,11 +95,10 @@ export default function PartViewDetail() {
                     </Flex>
                 </div>
             </Flex>
-            <Flex w='full'>
-                <Img src={positionImg01} alt='position 01' />
-                <img src={positionImg02} alt='position 02' />
-                {console.log(part.positionImg01)}
-            </Flex>
+            <SimpleGrid p="10px" spacing="10px" minChildWidth="250px">
+                <Image src={position01Img} alt='position 01' />
+                <Image src={position02Img} alt='position 02' />
+            </SimpleGrid>
             <Grid>
                 <Text mt='40px' mb='10px'><ChatIcon /> [Description]</Text>
                 <Text borderRadius='10px' border='1px' borderColor='gray.400' p='20px' w='full'>{description}</Text>
