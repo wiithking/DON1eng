@@ -45,10 +45,10 @@ export default function PartViewDetail() {
                 <Text>({partNameEng})</Text>
             </Flex>
             <Flex className='flex flex-col md:flex-row p-4'>
-                <div className='px-4 basis-5/12'>
+                <div className='px-4 basis-8/12'>
                     <Image src={partImg} alt={partNameKor} />
                 </div>
-                <div className='w-full basis-7/12 flex flex-col p-4'>
+                <div className='w-full basis-4/12 flex flex-col p-4'>
                     <List>
                         <ListItem mb='10px'>
                             <Text fontSize='lg'>category: {category}</Text>
