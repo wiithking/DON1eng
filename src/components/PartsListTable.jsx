@@ -1,20 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { getParts } from "../api/firebase";
-import { Table, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-// import { useMemo } from "react";
+import { useMemo } from "react";
 // import testData from './wiithking/testData.json';
 
 export default function PartsListTable() {
     const {
         isLoading,
         error,
-        data,
+        data: parts,
     } = useQuery({
         queryKey: ['parts'],
         queryFn: getParts
     });
     
+    const data = useMemo( () => parts, [parts]);
+    // console.log(`mData: ${mData}`)
     // const data = useMemo(() => parts, [])
 
     // const data = JSON.stringify(parts);
@@ -23,7 +25,7 @@ export default function PartsListTable() {
     // const data = parts;
 
     // console.log(parts);
-    console.log(data);
+    // console.log(data);
     // const data = testData;
 
     const columns = [
@@ -117,7 +119,7 @@ export default function PartsListTable() {
                         </Tr>
                     ))}
                 </Thead>
-                {/* <Tbody>
+                <Tbody>
                      {table.getRowModel().rows.map(row => (
                         <Tr key={row.id}>
                             {row.getVisibleCells().map(cell => (
@@ -130,7 +132,7 @@ export default function PartsListTable() {
                             ))}
                         </Tr>
                     ))}
-                </Tbody> */}
+                </Tbody>
             </Table>
         </>
     );

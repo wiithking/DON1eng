@@ -20,7 +20,7 @@ export default function TestTable() {
 // const data = JSON.stringify(mData);
 // const data = getTest;
 const data = useMemo( () => mData, [mData]);
-    console.log(`mData: ${mData}`)
+    // console.log(`mData: ${mData}`)
     // console.log(`data: ${data}`)
     // const data = tData;
     // const data = mData;
