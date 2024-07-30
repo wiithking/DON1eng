@@ -8,7 +8,7 @@ import {
     signOut,
     onAuthStateChanged
     } from "firebase/auth";
-import { getDatabase, ref, set, get, remove } from "firebase/database";
+import { getDatabase, ref, set, get, remove, child } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -133,6 +133,15 @@ export async function getTest() {
             .catch((error) => {
                 console.log(error);
             });
+}
+
+export async function getTest2() {
+    const dbRef = ref(getDatabase());
+    get(child (dbRef, 'mData')).then( (snapshot) => {
+        (snapshot.exists()) ? console.log(snapshot.val()) : console.log('No data available');
+    }).catch( (error) => {
+        console.error(error);
+    })
 }
 
 //부품 삭제

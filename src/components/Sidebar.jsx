@@ -43,6 +43,12 @@ export default function Sidebar() {
                         Test Table
                     </NavLink>
                 </ListItem>
+                <ListItem>
+                    <NavLink to="/testCards">
+                        <ListIcon as={ViewIcon} color="white" />
+                        test Cards
+                    </NavLink>
+                </ListItem>
             </List>
         </div>
     );

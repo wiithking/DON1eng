@@ -4,7 +4,7 @@ import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-tabl
 import { Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getTest } from '../../api/firebase';
-// import { useMemo } from 'react';
+import { useMemo } from 'react';
 
 export default function TestTable() {
     
@@ -16,15 +16,14 @@ export default function TestTable() {
     } = useQuery({
         queryKey: ['mData'],
         queryFn: getTest
-    },[]
-    )
+    });
 // const data = JSON.stringify(mData);
 // const data = getTest;
-// const data = useMemo( () => {
-    //     return mData
-    // }, [mData]);
+const data = useMemo( () => mData, [mData]);
+    console.log(`mData: ${mData}`)
+    // console.log(`data: ${data}`)
     // const data = tData;
-    const data = mData;
+    // const data = mData;
 
     const columns = [
         {
@@ -88,12 +87,12 @@ export default function TestTable() {
                     )}
                 </Thead>
                 <Tbody>
-                    {/* {console.log(testTable.getCoreRowModel().rows)} */}
+                    {console.log(testTable.getCoreRowModel().rows)}
                     {testTable.getRowModel().rows.map(row => (
                         <Tr key={row.id}>
                             {row.getVisibleCells().map(cell => (
                                 <Td key={cell.id}>
-                                    {/* {console.log(data)} */}
+                                    {console.log(data)}
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()
