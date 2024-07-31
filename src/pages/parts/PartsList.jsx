@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Button from '../../components/ui/Button';
-import { Button, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Flex, Input, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getParts } from '../../api/firebase';
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 // import PartsListTable from '../../components/PartsListTable';
 
 export default function PartsList() {
@@ -18,6 +18,7 @@ export default function PartsList() {
         queryFn: getParts
     });
     const data = useMemo( () => parts, [parts]);
+    const [filtering, setFiltering] = useState('');
 
     const columns = [
         {
@@ -45,7 +46,13 @@ export default function PartsList() {
     const partsTable = useReactTable({
         data,
         columns,
-        getCoreRowModel: getCoreRowModel()
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            globalFilter: filtering,
+        },
+        onGlobalFilterChange: setFiltering
     });
 
     return (
@@ -65,45 +72,54 @@ export default function PartsList() {
                 </Button>
                 
             </Flex>
-            <>
-                {/* <PartsListTable /> */}
-                {/* <List>
-                    <ListItem></ListItem>
-                </List> */}
+            {/* <PartsListTable /> */}
+            {/* <List>
+                <ListItem></ListItem>
+            </List> */}
 
-                {isLoading && <Text>Loading...</Text>}
-                {error && <Text>{error}</Text>}
-                <Table colorScheme='green'>
-                    <Thead>
-                        {partsTable.getHeaderGroups().map((headerGroup) =>
-                            <Tr key={headerGroup.id}>
-                                {headerGroup.headers.map( (header) => 
-                                    <Th color='blue' key={header.id}>
+            {isLoading && <Text>Loading...</Text>}
+            {error && <Text>{error}</Text>}
+            <Input 
+                type='text'
+                value={filtering}
+                onChange={ e => setFiltering(e.target.value)}
+            />
+            <Table colorScheme='green'>
+                <Thead>
+                    {partsTable.getHeaderGroups().map((headerGroup) =>
+                        <Tr key={headerGroup.id}>
+                            {headerGroup.headers.map( (header) => 
+                                <Th color='blue' key={header.id}>
+                                    {flexRender(
+                                        header.column.columnDef.header,
+                                        header.getContext()
+                                    )}
+                                </Th>
+                            )}
+                        </Tr>
+                    )}
+                </Thead>
+                <Tbody>
+                    {partsTable.getRowModel().rows.map( (row) =>
+                        <Tr key={row.id}>
+                            {row.getVisibleCells().map( (cell) =>
+                                    <Td key={cell.id}>
                                         {flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
                                         )}
-                                    </Th>
-                                )}
-                            </Tr>
-                        )}
-                    </Thead>
-                    <Tbody>
-                        {partsTable.getRowModel().rows.map( (row) =>
-                            <Tr key={row.id}>
-                                {row.getVisibleCells().map( (cell) =>
-                                        <Td key={cell.id}>
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
-                                        </Td>
-                                )}
-                            </Tr>
-                        )}
-                    </Tbody>
-                </Table>
-            </>
+                                    </Td>
+                            )}
+                        </Tr>
+                    )}
+                </Tbody>
+            </Table>
+            <div>
+                    <Button onClick={() => partsTable.setPageIndex(0)}>First Page</Button>
+                    <Button onClick={() => partsTable.previousPage()}>Previous Page</Button>
+                    <Button onClick={() => partsTable.nextPage()}>Next Page</Button>
+                    <Button onClick={() => partsTable.setPageIndex(0)}>Last Page</Button>
+            </div>
         </>
     );
 }

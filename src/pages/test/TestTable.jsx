@@ -106,8 +106,8 @@ const data = useMemo( () => mData, [mData]);
             </Table>
             <div>
                 <Button onClick={() => testTable.setPageIndex(0)}>FirstPage</Button>
-                <Button disabled={!testTable.getCanPreviousPage()} onClick={() => testTable.previousPage()}>PreviousPage</Button>
-                <Button disabled={!testTable.getCanNextPage()} onClick={() => testTable.nextPage()}>NextPage</Button>
+                <Button onClick={() => testTable.previousPage()}>PreviousPage</Button>
+                <Button onClick={() => testTable.nextPage()}>NextPage</Button>
                 <Button onClick={() => testTable.setPageIndex(testTable.getPageCount() - 1)}>LastPage</Button>
             </div>
         </div>
