@@ -73,12 +73,12 @@ export default function PartsList() {
 
                 {isLoading && <Text>Loading...</Text>}
                 {error && <Text>{error}</Text>}
-                <Table>
+                <Table colorScheme='green'>
                     <Thead>
                         {partsTable.getHeaderGroups().map((headerGroup) =>
                             <Tr key={headerGroup.id}>
                                 {headerGroup.headers.map( (header) => 
-                                    <Th key={header.id}>
+                                    <Th color='blue' key={header.id}>
                                         {flexRender(
                                             header.column.columnDef.header,
                                             header.getContext()

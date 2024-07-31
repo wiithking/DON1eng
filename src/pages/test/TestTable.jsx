@@ -1,7 +1,7 @@
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 // import React, { useMemo } from 'react';
 // import tData from '../../components/wiithking/MOCK_DATA.json';
-import { Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getTest } from '../../api/firebase';
 import { useMemo } from 'react';
@@ -62,7 +62,8 @@ const data = useMemo( () => mData, [mData]);
     const testTable = useReactTable({
         data,
         columns,
-        getCoreRowModel: getCoreRowModel()
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
     });
 
 // console.log(data)
@@ -92,7 +93,7 @@ const data = useMemo( () => mData, [mData]);
                         <Tr key={row.id}>
                             {row.getVisibleCells().map(cell => (
                                 <Td key={cell.id}>
-                                    {console.log(data)}
+                                    {/* {console.log(data)} */}
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()
@@ -103,6 +104,12 @@ const data = useMemo( () => mData, [mData]);
                     ))}
                 </Tbody>
             </Table>
+            <div>
+                <Button onClick={() => testTable.setPageIndex(0)}>FirstPage</Button>
+                <Button disabled={!testTable.getCanPreviousPage()} onClick={() => testTable.previousPage()}>PreviousPage</Button>
+                <Button disabled={!testTable.getCanNextPage()} onClick={() => testTable.nextPage()}>NextPage</Button>
+                <Button onClick={() => testTable.setPageIndex(testTable.getPageCount() - 1)}>LastPage</Button>
+            </div>
         </div>
     );
 }
