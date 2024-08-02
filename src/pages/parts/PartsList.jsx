@@ -22,6 +22,10 @@ export default function PartsList() {
 
     const columns = [
         {
+            header: 'ID',
+            accessorKey: 'partNumberDON1eng',
+        },
+        {
             header: 'part Name(Eng)',
             accessorKey: 'partNameEng',
         },
@@ -114,12 +118,12 @@ export default function PartsList() {
                     )}
                 </Tbody>
             </Table>
-            <div>
-                    <Button onClick={() => partsTable.setPageIndex(0)}>First Page</Button>
-                    <Button onClick={() => partsTable.previousPage()}>Previous Page</Button>
-                    <Button onClick={() => partsTable.nextPage()}>Next Page</Button>
-                    <Button onClick={() => partsTable.setPageIndex(0)}>Last Page</Button>
-            </div>
+            <Flex gap='3'>
+                    <Button border='2px' colorScheme='gray' onClick={() => partsTable.setPageIndex(0)}>First Page</Button>
+                    <Button border='2px' colorScheme='gray' onClick={() => partsTable.previousPage()}>Previous Page</Button>
+                    <Button border='2px' colorScheme='gray' onClick={() => partsTable.nextPage()}>Next Page</Button>
+                    <Button border='2px' colorScheme='gray' onClick={() => partsTable.setPageIndex(partsTable.getPageCount()-1)}>Last Page</Button>
+            </Flex>
         </>
     );
 }

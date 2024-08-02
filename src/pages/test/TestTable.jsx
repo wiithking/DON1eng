@@ -1,7 +1,7 @@
 import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 // import React, { useMemo } from 'react';
 // import tData from '../../components/wiithking/MOCK_DATA.json';
-import { Button, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getTest } from '../../api/firebase';
 import { useMemo } from 'react';
@@ -104,12 +104,12 @@ const data = useMemo( () => mData, [mData]);
                     ))}
                 </Tbody>
             </Table>
-            <div>
-                <Button onClick={() => testTable.setPageIndex(0)}>FirstPage</Button>
-                <Button onClick={() => testTable.previousPage()}>PreviousPage</Button>
-                <Button onClick={() => testTable.nextPage()}>NextPage</Button>
-                <Button onClick={() => testTable.setPageIndex(testTable.getPageCount() - 1)}>LastPage</Button>
-            </div>
+            <Flex gap='3'>
+                    <Button border='2px' colorScheme='gray' onClick={() => testTable.setPageIndex(0)}>First Page</Button>
+                    <Button border='2px' colorScheme='gray' onClick={() => testTable.previousPage()}>Previous Page</Button>
+                    <Button border='2px' colorScheme='gray' onClick={() => testTable.nextPage()}>Next Page</Button>
+                    <Button border='2px' colorScheme='gray' onClick={() => testTable.setPageIndex(testTable.getPageCount()-1)}>Last Page</Button>
+            </Flex>
         </div>
     );
 }
