@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Flex, Input, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getParts } from '../../api/firebase';
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
+import { 
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useReactTable } from '@tanstack/react-table';
 // import PartsListTable from '../../components/PartsListTable';
 
 export default function PartsList() {
@@ -19,6 +25,7 @@ export default function PartsList() {
     });
     const data = useMemo( () => parts, [parts]);
     const [filtering, setFiltering] = useState('');
+    const [sorting, setSorting] = useState([]);
 
     const columns = [
         {
@@ -53,10 +60,13 @@ export default function PartsList() {
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         state: {
+            sorting: sorting,
             globalFilter: filtering,
         },
-        onGlobalFilterChange: setFiltering
+        onSortingChange: setSorting,
+        onGlobalFilterChange: setFiltering,
     });
 
     return (
@@ -93,11 +103,21 @@ export default function PartsList() {
                     {partsTable.getHeaderGroups().map((headerGroup) =>
                         <Tr key={headerGroup.id}>
                             {headerGroup.headers.map( (header) => 
-                                <Th color='blue' key={header.id}>
-                                    {flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext()
+                                <Th 
+                                    color='blue' 
+                                    key={header.id}
+                                    onClick={header.column.getToggleSortingHandler()}
+                                    >
+                                    { 
+                                        header.isPlaceholder ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
                                     )}
+                                    {
+                                        { asc: '🔼', desc:'🔽' } 
+                                        [header.column.getIsSorted() ?? null]
+                                    }
                                 </Th>
                             )}
                         </Tr>

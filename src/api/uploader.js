@@ -1,3 +1,4 @@
+// import {v2 as cloudinary } from 'cloudinary';
 export async function uploadImage(file) {
     const data = new FormData();
     data.append('file', file);

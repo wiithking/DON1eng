@@ -22,7 +22,7 @@ export default function PartsNew() {
     const toast = useToast();
     const navigate = useNavigate()
 
-    const showToast = () => {
+    const showToast = (msg) => {
         toast({
             title: 'Success!',
             description: '성공적으로 추가되었습니다!',
@@ -35,6 +35,7 @@ export default function PartsNew() {
     const handleChangePartImgFile = (e) => {
         const {files} =e.target;
         setPartImgFile(files && files[0]);
+        // console.log(partImgFile);
         return;
     };
     const handleChangePosition01ImgFile = (e) => {
@@ -47,12 +48,12 @@ export default function PartsNew() {
         setPosition02ImgFile(files && files[0]);
         return;
     };
-    
     const handleChangeBarcodeImgFile = (e) => {
         const {files} =e.target;
         setBarcodeImgFile(files && files[0]);
         return;
     };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPart((part) => ({ ...part, [name]: value }));
@@ -65,7 +66,7 @@ export default function PartsNew() {
 
         uploadImage(partImgFile)
             .then(url => {
-                console.log(partImgFile)
+                console.log(partImgURL);
                 setPartImgURL(url);
             });
         uploadImage(position01ImgFile)
@@ -80,12 +81,10 @@ export default function PartsNew() {
             .then(url => {
                 setBarcodeImgURL(url);
             })
-            //.finally( () => setIsUploading(false) );
-            
-            addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
-            showToast();
-            // console.log(partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
-            navigate('/partsviewcard')
+            .then(addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL))
+            .then(showToast())
+            .then(() => setIsUploading(false))
+            .then(navigate('/partsviewcard'))
         };
         
         
@@ -115,19 +114,6 @@ export default function PartsNew() {
                 <FormControl pb='30px'>
                     <Input 
                         type="text" 
-                        name="partNumberManufacturer"
-                        variant='outline'
-                        size='lg'
-                        bg='white'
-                        value={part.partNumberManufacturer ?? ''}
-                        placeholder='제조사 부품번호'
-                        onChange={handleChange}
-                        />
-                    <FormHelperText color='gray.400'>제조사에서 부여한 부품번호를 입력해 주세요.</FormHelperText>
-                </FormControl>
-                <FormControl pb='30px'>
-                    <Input 
-                        type="text" 
                         name="partNumberDON1eng"
                         variant='outline'
                         size='lg'
@@ -137,6 +123,19 @@ export default function PartsNew() {
                         onChange={handleChange}
                         />
                     <FormHelperText color='gray.400'>DON1 센터에서 부여한 부품관리 번호를 입력해 주세요.</FormHelperText>
+                </FormControl>
+                <FormControl pb='30px'>
+                    <Input 
+                        type="text" 
+                        name="partNumberManufacturer"
+                        variant='outline'
+                        size='lg'
+                        bg='white'
+                        value={part.partNumberManufacturer ?? ''}
+                        placeholder='제조사 부품번호'
+                        onChange={handleChange}
+                        />
+                    <FormHelperText color='gray.400'>제조사에서 부여한 부품번호를 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
                     <Select

@@ -27,10 +27,11 @@ export default function PartViewCard() {
                 {parts && parts.map(part => (
                     <Card key={part.partNumberDON1eng} >
                         <CardHeader>
-                            <Heading as="h3" size="lg">{part.partNameKor}</Heading>
+                            <Text fontSize='sm'>{part.partNameEng}</Text>
+                            <Heading mb='20px' as="h3" size="md">{part.partNameKor}</Heading>
                             <Image
                                 src={part.partImg}
-                                alt={part.partNameEng} 
+                                alt='Image of this part' 
                             />
                         </CardHeader>
 
@@ -44,9 +45,6 @@ export default function PartViewCard() {
                                 </ListItem>
                                 <ListItem>
                                     <Text>관리번호: {part.partNumberDON1eng}</Text>
-                                </ListItem>
-                                <ListItem>
-                                    <Text>position01Img: {part.position01Img}</Text>
                                 </ListItem>
                             </List>
                         </CardBody>

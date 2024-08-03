@@ -2,7 +2,7 @@ import React from 'react';
 // import { useAuthContext } from '../context/AuthContext';
 import Welcome from '../components/Welcome';
 // import HomeLogin from '../components/HomeLogin';
-import DBChange from '../components/wiithking/DBChange';
+// import DBChange from '../components/wiithking/DBChange';
 
 export default function Home() {
     // const { user } = useAuthContext();
@@ -12,7 +12,7 @@ export default function Home() {
             {/* { user && <Welcome /> }
             { !user && <HomeLogin /> } */}
             <Welcome />
-            <DBChange />
+            
         </div>
         
     );

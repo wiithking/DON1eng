@@ -1,6 +1,5 @@
-import dummy from "../files/SolvusAutobagParts_20240615.json";
 import { initializeApp } from "firebase/app";
-import {v4 as uuid } from 'uuid';
+// import {v4 as uuid } from 'uuid';
 import { 
     getAuth, 
     signInWithPopup, 
@@ -8,7 +7,7 @@ import {
     signOut,
     onAuthStateChanged
     } from "firebase/auth";
-import { getDatabase, ref, set, get, remove, child } from "firebase/database";
+import { getDatabase, ref, set, get, remove } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -54,18 +53,7 @@ async function adminUser(user) {
 }
 
 
-// option 내용을 불러 오는 function
-// export async function getOptions(optionText) {
-//     return get(ref(database, optionText))
-//         .then((snapshot) => {
-//             if(snapshot.exists()) {
-//                 return Object.values(snapshot.val());
-//             }
-//             return [];
-//         });
-// } 
 
-// autobag MODEL명 불러 오는 function
 
 
 
@@ -83,20 +71,13 @@ export async function addNewPart(part, partImgURL, position01ImgURL, position02I
         position01Img: position01ImgURL,
         position02Img: position02ImgURL,
         barcodeImg: barcodeImgURL,
-        price: parseInt(part.price),
-        needQty: parseInt(part.needQty),
-        recommendedReplacementCycle: parseInt(part.recommendedReplacementCycle)
+        // price: parseInt(part.price),
+        // needQty: parseInt(part.needQty),
+        // recommendedReplacementCycle: parseInt(part.recommendedReplacementCycle)
     })
 }
 
 
-
-export async function addTest(testData) {
-    // const id = uuid();
-    return set(ref(database, `test/${testData.testId}`), {
-        ...testData
-    })
-}
 
 // 부품목록 불러 오는 function
 export async function getParts() {
@@ -117,32 +98,6 @@ export async function getParts() {
             });
 }
 
-export async function getTest() {
-    return get(ref(database, 'mData'))
-            .then(
-                (snapshot) => {
-                    // console.log('t');
-                    if(snapshot.exists()) {
-                        return Object.values(snapshot.val());
-                    } else {
-                        return [];
-                    }
-                    
-                }
-            )
-            .catch((error) => {
-                console.log(error);
-            });
-}
-
-export async function getTest2() {
-    const dbRef = ref(getDatabase());
-    get(child (dbRef, 'mData')).then( (snapshot) => {
-        (snapshot.exists()) ? console.log(snapshot.val()) : console.log('No data available');
-    }).catch( (error) => {
-        console.error(error);
-    })
-}
 
 //부품 삭제
 export async function delPart(part) {
@@ -157,31 +112,40 @@ export async function delPart(part) {
 }
 
 
-// json 파일을 db로 옮김
-export async function migrationParts() {
-    
-    dummy.partsSp.map(partss => (
-        set(ref(database, `parts/${uuid()}`), {
-            // id,
-            partNumberManufacturer: partss.PartNumberManufacturer,
-            partNumberDON1eng: partss.PartNumberDON1eng,
-            partImg: partss.PartPicture,
-            category: partss.Category,
-            autobagModel: partss.AutobagModel,
-            partNameEng: partss.PartNameEng,
-            partNameKor: partss.PartNameKor,
-            modelNumber: partss.ModelNumber,
-            manufacturer: partss.Manufacturer,
-            usePosition: partss.UsePosition,
-            size: partss.Size,
-            needQty: partss.NeedQty,
-            recommendedReplacementCycle: partss.RecommendedReplacementCycle,
-            positionImg01: partss.PositionPic1,
-            positionImg02: partss.PositionPic2,
-            barcodeImg: partss.Barcode,
-            price: partss.Price,            
-            description: partss.Description, 
-            note: partss.Note
-        })
-    ));
+export async function migrationParts(parts) {
+
+    return (
+        parts.map( (part) => (
+            set(ref(database, `parts/${part.partNumberDON1eng}`), {
+                ...part,
+                // price: parseInt(part.price),
+                // needQty: parseInt(part.needQty),
+                // recommendedReplacementCycle: parseInt(part.recommendedReplacementCycle)
+            })
+        ))
+    )
 }
+
+    // partNumberDON1eng
+    // partNumberManufacturer
+    // partImg
+    // category
+    // autobagModel
+    // partNameKor
+    // partNameEng
+    // modelNumber
+    // manufacturer
+    // usePosition
+    // size
+    // needQty
+    // recommendedReplacementCycle
+    // position01Img
+    // position02Img
+    // barcodeImg
+    // price
+    // invenNeedAmount
+    // invenBookAmount
+    // invenCurrentAmount
+    // invenPosition
+    // description
+    // note

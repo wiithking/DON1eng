@@ -31,24 +31,6 @@ export default function Sidebar() {
                         Part Cards
                     </NavLink>
                 </ListItem>
-                <ListItem>
-                    <NavLink to="/addTestData">
-                        <ListIcon as={ViewIcon} color="white" />
-                        Add Test Data
-                    </NavLink>
-                </ListItem>
-                <ListItem>
-                    <NavLink to="/testTable">
-                        <ListIcon as={ViewIcon} color="white" />
-                        Test Table
-                    </NavLink>
-                </ListItem>
-                <ListItem>
-                    <NavLink to="/testCards">
-                        <ListIcon as={ViewIcon} color="white" />
-                        test Cards
-                    </NavLink>
-                </ListItem>
             </List>
         </div>
     );

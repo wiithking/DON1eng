@@ -35,9 +35,6 @@ import PersonNew from './pages/person/PersonNew';
 import PersonView from './pages/person/PersonView';
 import { ChakraProvider } from '@chakra-ui/react';
 //test
-import AddTestData from './pages/test/AddTestData';
-import TestTable from './pages/test/TestTable';
-import TestCards from './pages/test/TestCards';
 
 
 // const PATH_DAILYWORKS = '/pages/dailyworks';
@@ -56,18 +53,7 @@ const router = createBrowserRouter(
         {index: true, path: '/', element: <Home />},
 
         // Test --------------------------------------
-        {
-          path: `/addTestData`,
-          element: <AddTestData />,
-        },
-        {
-          path: `/testTable`,
-          element: <TestTable />,
-        },
-        {
-          path: `/testCards`,
-          element: <TestCards />,
-        },
+
         // Parts --------------------------------------
         {
           path: `/partsnew`,
