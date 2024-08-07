@@ -25,7 +25,7 @@ export default function PartViewCard() {
                 {error && <Text>{error}</Text>}
                 {/* {console.log(parts)} */}
                 {parts && parts.map(part => (
-                    <Card key={part.partNumberDON1eng} >
+                    <Card key={part.partNumberDON1eng}>
                         <CardHeader>
                             <Text fontSize='sm'>{part.partNameEng}</Text>
                             <Heading mb='20px' as="h3" size="md">{part.partNameKor}</Heading>

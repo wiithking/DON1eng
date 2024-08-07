@@ -31,26 +31,32 @@ export default function PartsList() {
         {
             header: 'ID',
             accessorKey: 'partNumberDON1eng',
+            cell: (props) => <p>{props.getValue()}</p>,
         },
         {
             header: 'part Name(Eng)',
             accessorKey: 'partNameEng',
+            cell: (props) => <p>{props.getValue()}</p>,
         },
         {
             header: 'part Name(Kor)',
             accessorKey: 'partNameKor',
+            cell: (props) => <p>{props.getValue()}</p>,
         },
         {
             header: 'Model Number',
             accessorKey: 'modelNumber',
+            cell: (props) => <p>{props.getValue()}</p>,
         },
         {
             header: 'category',
             accessorKey: 'category',
+            cell: (props) => <p>{props.getValue()}</p>,
         },
         {
             header: 'Autobag',
             accessorKey: 'autobagModel',
+            cell: (props) => <p>{props.getValue()}</p>,
         },
     ]
 

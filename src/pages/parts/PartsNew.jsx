@@ -3,7 +3,7 @@ import { addNewPart } from '../../api/firebase';
 import { uploadImage } from '../../api/uploader';
 // import Button from '../../components/ui/Button';
 import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea, useToast } from '@chakra-ui/react';
-import { Form, useNavigate } from 'react-router-dom';
+import { Form } from 'react-router-dom';
 
 export default function PartsNew() {
     const [part, setPart] = useState({});
@@ -20,7 +20,7 @@ export default function PartsNew() {
     const [isUploading, setIsUploading] = useState(false);
     // const [success, setSuccess] =useState();
     const toast = useToast();
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const showToast = (msg) => {
         toast({
@@ -35,7 +35,6 @@ export default function PartsNew() {
     const handleChangePartImgFile = (e) => {
         const {files} =e.target;
         setPartImgFile(files && files[0]);
-        // console.log(partImgFile);
         return;
     };
     const handleChangePosition01ImgFile = (e) => {
@@ -53,43 +52,45 @@ export default function PartsNew() {
         setBarcodeImgFile(files && files[0]);
         return;
     };
-
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPart((part) => ({ ...part, [name]: value }));
     };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        
         setIsUploading(true);
-
+        
         uploadImage(partImgFile)
-            .then(url => {
-                console.log(partImgURL);
-                setPartImgURL(url);
-            });
+        .then(url => {
+            setPartImgURL(url);
+        });
         uploadImage(position01ImgFile)
-            .then(url => {
-                setPosition01ImgURL(url);
-            });
+        .then(url => {
+            setPosition01ImgURL(url);
+        });
         uploadImage(position02ImgFile)
-            .then(url => {
-                setPosition02ImgURL(url);
-            });
+        .then(url => {
+            setPosition02ImgURL(url);
+        });
         uploadImage(barcodeImgFile)
-            .then(url => {
-                setBarcodeImgURL(url);
-            })
-            .then(addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL))
-            .then(showToast())
-            .then(() => setIsUploading(false))
-            .then(navigate('/partsviewcard'))
-        };
-        
-        
-        // const INPUT_CSS = 'bg-gray-110 p-3 outline-none border border-gray-300 my-1'
-
+        .then(url => {
+            setBarcodeImgURL(url);
+        })
+        .then(addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL))
+        .then(showToast())
+        .then(() => setIsUploading(false))
+        console.log(partImgURL);
+        console.log(position01ImgURL);
+        console.log(position02ImgURL);
+        console.log(barcodeImgURL);
+        // .then(navigate('/partsviewcard'))
+    };
+    
+    
+    
         
 
         

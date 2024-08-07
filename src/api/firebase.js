@@ -98,6 +98,22 @@ export async function getParts() {
             });
 }
 
+export async function getCategory() {
+    return get(ref(database, 'category'))
+            .then(
+                (snapshot) => {
+                    if(snapshot.exists()) {
+                        return Object.values(snapshot.val());
+                    } else {
+                        return [];
+                    }
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            });
+}
+
 
 //부품 삭제
 export async function delPart(part) {
@@ -118,9 +134,6 @@ export async function migrationParts(parts) {
         parts.map( (part) => (
             set(ref(database, `parts/${part.partNumberDON1eng}`), {
                 ...part,
-                // price: parseInt(part.price),
-                // needQty: parseInt(part.needQty),
-                // recommendedReplacementCycle: parseInt(part.recommendedReplacementCycle)
             })
         ))
     )

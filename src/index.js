@@ -34,6 +34,9 @@ import PersonModify from './pages/person/PersonModify';
 import PersonNew from './pages/person/PersonNew';
 import PersonView from './pages/person/PersonView';
 import { ChakraProvider } from '@chakra-ui/react';
+import PartsTable from './pages/parts/PartsTable';
+
+// import theme from './theme/theme.js';
 //test
 
 
@@ -74,6 +77,10 @@ const router = createBrowserRouter(
         {
           path: `/partslist`,
           element: <PartsList />,
+        },
+        {
+          path: `/partstable`,
+          element: <PartsTable />,
         },
       
         // Inventory --------------------------------------
