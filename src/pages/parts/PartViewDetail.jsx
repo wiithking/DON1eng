@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Flex, Grid, Heading, Image, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Grid, Heading, Image, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
 import { delPart } from '../../api/firebase';
 import { ChatIcon, EditIcon } from '@chakra-ui/icons';
 
@@ -36,47 +36,59 @@ export default function PartViewDetail() {
 
     return (
         <>
-            <Text ml='40px' fontSize='3xl'>{partNumberDON1eng}</Text>
+            <Flex alignItems='center' mb='20px'>
+                <Text fontSize='xl' color='gray.400'>(id)</Text>
+                <Text ml='10px' fontSize='3xl'>{partNumberDON1eng}</Text>
+            </Flex>
+            
             {/* <Text ml='40px' fontSize='3xl'>{positionImg01}</Text> */}
-            {console.log(part)}
+            {/* {console.log(part)} */}
 
-            <Flex className='flex flex-col md:flex-row items-center '>
+            <Flex mb='30px' alignItems='center' className='flex flex-col md:flex-row items-center '>
                 <Heading fontSize='4xl' borderBottom='1px'>{partNameKor}</Heading>
                 <Text>({partNameEng})</Text>
             </Flex>
-            <Flex className='flex flex-col md:flex-row p-4'>
-                <div className='px-4 basis-8/12'>
-                    <Image src={partImg} alt={partNameKor} />
+            <SimpleGrid minChildWidth='250px' className='flex flex-col md:flex-row p-4'>
+                <div className='px-14'>
+                    <Image marginRight='30px' src={partImg} alt={partNameKor} />
                 </div>
-                <div className='w-full basis-4/12 flex flex-col p-4'>
-                    <List>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>category: {category}</Text>
+                <div className='w-full flex flex-col p-4 ml-20'>
+                    <List ml='50px'>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >category:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{category}</Box>
                         </ListItem>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>모델번호: {modelNumber}</Text>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >모델번호:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{modelNumber}</Box>
                         </ListItem>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>제조사: {manufacturer}</Text>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >제조사:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{manufacturer}</Box>
                         </ListItem>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>오토백: {autobagModel}</Text>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >오토백:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{autobagModel}</Box>
                         </ListItem>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>size: {size}</Text>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >size:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{size}</Box>
                         </ListItem>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>needQty: {needQty}</Text>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >needQty:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{needQty}</Box>
                         </ListItem>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>cycle: {recommendedReplacementCycle}</Text>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >cycle:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{recommendedReplacementCycle}</Box>
                         </ListItem>
-                        <ListItem mb='10px'>
-                            <Text fontSize='lg'>UseAt: {usePosition}</Text>
+                        <ListItem mb='10px' display='flex' alignItems='center'>
+                            <Box fontSize='xl' >UseAt:</Box>
+                            <Box fontSize='3xl' ml='10px' fontWeight='bold'>{usePosition}</Box>
                         </ListItem>
                     </List>
-                    <Image mb='40px' w='200px' src={barcodeImg} alt='barcode' />
-                    <Flex w='full' gap='5' mb='20px'>
+                    <Image ml='30px' mb='40px' w='200px' src={barcodeImg} alt='barcode' />
+                    <Flex w='full' gap='5' ml='30px' mb='20px'>
                         <Button
                             colorScheme='purple'
                             onClick={ () => {navigate(`/partsmodify/${id}`, { state: { part } } )}}
@@ -94,8 +106,8 @@ export default function PartViewDetail() {
                         </Button>
                     </Flex>
                 </div>
-            </Flex>
-            <SimpleGrid p="10px" spacing="10px" minChildWidth="250px">
+            </SimpleGrid>
+            <SimpleGrid my='30px' mx='100px' p="10px" spacing="10px" minChildWidth="250px">
                 <Image src={position01Img} alt='position 01' />
                 <Image src={position02Img} alt='position 02' />
             </SimpleGrid>

@@ -2,10 +2,41 @@ import React, { useState } from 'react';
 import { addNewPart } from '../../api/firebase';
 import { uploadImage } from '../../api/uploader';
 // import Button from '../../components/ui/Button';
-import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Select, Textarea, useToast } from '@chakra-ui/react';
-import { Form, useNavigate } from 'react-router-dom';
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Image, Input, Select, Textarea, useToast } from '@chakra-ui/react';
+import { Form, useLocation } from 'react-router-dom';
 
 export default function PartsModify() {
+    const {
+        state: {
+            part: {
+                // id,
+                partNumberManufacturer,
+                partNumberDON1eng,
+                // partImg,
+                // category,
+                // autobagModel,
+                partNameEng,
+                partNameKor,
+                modelNumber,
+                manufacturer,
+                usePosition,
+                size,
+                needQty,
+                recommendedReplacementCycle,
+                // position01Img,
+                // position02Img,
+                // barcodeImg,
+                price,            
+                description, 
+                note,
+            },
+        },
+    } = useLocation();
+    
+    
+    
+    
+    
     const [part, setPart] = useState({});
     const [partImgFile, setPartImgFile] = useState();
     const [position01ImgFile, setPosition01ImgFile] = useState();
@@ -20,9 +51,9 @@ export default function PartsModify() {
     const [isUploading, setIsUploading] = useState(false);
     // const [success, setSuccess] =useState();
     const toast = useToast();
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
-    const showToast = () => {
+    const showToast = (msg) => {
         toast({
             title: 'Success!',
             description: '성공적으로 추가되었습니다!',
@@ -47,59 +78,63 @@ export default function PartsModify() {
         setPosition02ImgFile(files && files[0]);
         return;
     };
-    
     const handleChangeBarcodeImgFile = (e) => {
         const {files} =e.target;
         setBarcodeImgFile(files && files[0]);
         return;
     };
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPart((part) => ({ ...part, [name]: value }));
     };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        
         setIsUploading(true);
-
+        
         uploadImage(partImgFile)
-            .then(url => {
-                console.log(partImgFile)
-                setPartImgURL(url);
-            });
+        .then(url => {
+            setPartImgURL(url);
+        });
         uploadImage(position01ImgFile)
-            .then(url => {
-                setPosition01ImgURL(url);
-            });
+        .then(url => {
+            setPosition01ImgURL(url);
+        });
         uploadImage(position02ImgFile)
-            .then(url => {
-                setPosition02ImgURL(url);
-            });
+        .then(url => {
+            setPosition02ImgURL(url);
+        });
         uploadImage(barcodeImgFile)
-            .then(url => {
-                setBarcodeImgURL(url);
-            })
-            //.finally( () => setIsUploading(false) );
-            
-            addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
-            showToast();
-            // console.log(partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL);
-            navigate('/partsviewcard')
-        };
-        
-        
-        // const INPUT_CSS = 'bg-gray-110 p-3 outline-none border border-gray-300 my-1'
-
+        .then(url => {
+            setBarcodeImgURL(url);
+        })
+        .then(addNewPart(part, partImgURL, position01ImgURL, position02ImgURL, barcodeImgURL))
+        .then(showToast())
+        .then(() => setIsUploading(false))
+        console.log(partImgURL);
+        console.log(position01ImgURL);
+        console.log(position02ImgURL);
+        console.log(barcodeImgURL);
+        // .then(navigate('/partsviewcard'))
+    };
+    
+    
+    
         
 
         
     return (
         <Box>
-            <h2 className='text-2xl font-bold my-4'>새로운 부품 등록</h2>
+            <h2 className='text-2xl font-bold my-4'>부품 수정 : {part.partNumberDON1eng} / {part.partNameKor}</h2>
             <Form onSubmit={handleSubmit}>
                 {/* {setPartImgFile(part.partImgURL)}         */}
-                {partImgFile && <img className='w-96 mx-auto mb-2' src={URL.createObjectURL(partImgFile)} alt='local file' />}
+                <Flex>
+                    <Box>{partImgFile && <Image className='w-96 mx-auto mb-2' src={URL.createObjectURL(partImgFile)} alt='local file' />}</Box>
+                    <Box>{partImgURL && <Image className='w-967 mx-auto mb-2' src={partImgURL} alt='web image' />}</Box>
+
+                </Flex>
                 <FormControl pb="40px">
                     <FormLabel>부품 이미지</FormLabel>
                     <Input 
@@ -115,28 +150,28 @@ export default function PartsModify() {
                 <FormControl pb='30px'>
                     <Input 
                         type="text" 
-                        name="partNumberManufacturer"
-                        variant='outline'
-                        size='lg'
-                        bg='white'
-                        value={part.partNumberManufacturer ?? ''}
-                        placeholder='제조사 부품번호'
-                        onChange={handleChange}
-                        />
-                    <FormHelperText color='gray.400'>제조사에서 부여한 부품번호를 입력해 주세요.</FormHelperText>
-                </FormControl>
-                <FormControl pb='30px'>
-                    <Input 
-                        type="text" 
                         name="partNumberDON1eng"
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.partNumberDON1eng ?? ''}
+                        value={partNumberDON1eng ?? ''}
                         placeholder='DON1 부품번호'
                         onChange={handleChange}
                         />
                     <FormHelperText color='gray.400'>DON1 센터에서 부여한 부품관리 번호를 입력해 주세요.</FormHelperText>
+                </FormControl>
+                <FormControl pb='30px'>
+                    <Input 
+                        type="text" 
+                        name="partNumberManufacturer"
+                        variant='outline'
+                        size='lg'
+                        bg='white'
+                        value={partNumberManufacturer ?? ''}
+                        placeholder='제조사 부품번호'
+                        onChange={handleChange}
+                        />
+                    <FormHelperText color='gray.400'>제조사에서 부여한 부품번호를 입력해 주세요.</FormHelperText>
                 </FormControl>
                 <FormControl pb='30px'>
                     <Select
@@ -186,7 +221,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.partNameEng ?? ''}
+                        value={partNameEng ?? ''}
                         placeholder='부품이름(Eng)'
                         onChange={handleChange}
                         />
@@ -199,7 +234,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.partNameKor ?? ''}
+                        value={partNameKor ?? ''}
                         placeholder='부품이름(kor)'
                         onChange={handleChange}
                         />
@@ -212,7 +247,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.manufacturer ?? ''}
+                        value={manufacturer ?? ''}
                         placeholder='제조사명'
                         onChange={handleChange}
                         />
@@ -225,7 +260,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.modelNumber ?? ''}
+                        value={modelNumber ?? ''}
                         placeholder='부품 모델번호'
                         onChange={handleChange}
                         />
@@ -238,7 +273,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.usePosition ?? ''}
+                        value={usePosition ?? ''}
                         placeholder='부품의 사용 위치'
                         onChange={handleChange}
                         />
@@ -251,7 +286,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.size ?? ''}
+                        value={size ?? ''}
                         placeholder='부품 size'
                         onChange={handleChange}
                         />
@@ -264,7 +299,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.needQty ?? ''}
+                        value={needQty ?? ''}
                         placeholder='필요 수량'
                         onChange={handleChange}
                         />
@@ -277,7 +312,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.recommendedReplacementCycle ?? ''}
+                        value={recommendedReplacementCycle ?? ''}
                         placeholder='사용연한'
                         onChange={handleChange}
                         />
@@ -332,7 +367,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.price ?? ''}
+                        value={price ?? ''}
                         placeholder='가격'
                         onChange={handleChange}
                         />
@@ -345,7 +380,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.description ?? ''}
+                        value={description ?? ''}
                         placeholder='사용설명'
                         onChange={handleChange}
                         />
@@ -357,7 +392,7 @@ export default function PartsModify() {
                         variant='outline'
                         size='lg'
                         bg='white'
-                        value={part.note ?? ''}
+                        value={note ?? ''}
                         placeholder='기타 메모'
                         onChange={handleChange}
                         />

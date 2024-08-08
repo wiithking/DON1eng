@@ -11,6 +11,8 @@ import {
     getPaginationRowModel,
     getSortedRowModel,
     useReactTable } from '@tanstack/react-table';
+import ImageCell from '../../components/forTable/ImageCell';
+import IDCell from '../../components/forTable/IDCell';
 // import PartsListTable from '../../components/PartsListTable';
 
 export default function PartsList() {
@@ -29,9 +31,14 @@ export default function PartsList() {
 
     const columns = [
         {
+            header: 'Image',
+            accessorKey: 'partImg',
+            cell: ImageCell,
+        },
+        {
             header: 'ID',
             accessorKey: 'partNumberDON1eng',
-            cell: (props) => <p>{props.getValue()}</p>,
+            cell: IDCell,
         },
         {
             header: 'part Name(Eng)',
@@ -77,7 +84,7 @@ export default function PartsList() {
 
     return (
         <>
-            <Flex gap='3' mb='30px'>
+            <Flex gap='3' mb='10px'>
                 <Button
                     colorScheme='purple'
                     onClick={() => {navigate('/partsnew')}}
@@ -99,19 +106,32 @@ export default function PartsList() {
 
             {isLoading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
-            <Input 
-                type='text'
-                value={filtering}
-                onChange={ e => setFiltering(e.target.value)}
-            />
-            <Table colorScheme='green'>
-                <Thead>
+            <Flex alignItems='center' mb='10px'>
+                <Text mr='15px'>Search: </Text>
+                <Input 
+                    type='text'
+                    value={filtering}
+                    onChange={ e => setFiltering(e.target.value)}
+                />
+            </Flex>
+        
+            <Table 
+                bg='gray.200' 
+                border='2px' 
+                w='full' 
+                mb='20px'
+            >
+                <Thead borderBottom='2px'>
                     {partsTable.getHeaderGroups().map((headerGroup) =>
-                        <Tr key={headerGroup.id}>
+                        <Tr key={headerGroup.id} >
                             {headerGroup.headers.map( (header) => 
                                 <Th 
-                                    color='blue' 
                                     key={header.id}
+                                    color='black'
+                                    border='1px'
+                                    bg='gray.300'
+                                    fontWeight='bold'
+                                    fontSize='md'
                                     onClick={header.column.getToggleSortingHandler()}
                                     >
                                     { 
@@ -129,11 +149,11 @@ export default function PartsList() {
                         </Tr>
                     )}
                 </Thead>
-                <Tbody>
+                <Tbody >
                     {partsTable.getRowModel().rows.map( (row) =>
-                        <Tr key={row.id}>
+                        <Tr key={row.id} >
                             {row.getVisibleCells().map( (cell) =>
-                                    <Td key={cell.id}>
+                                    <Td border='1px' key={cell.id}>
                                         {flexRender(
                                             cell.column.columnDef.cell,
                                             cell.getContext()
@@ -144,11 +164,14 @@ export default function PartsList() {
                     )}
                 </Tbody>
             </Table>
-            <Flex gap='3'>
+            <Flex gap='3' alignItems='center'>
                     <Button border='2px' colorScheme='gray' onClick={() => partsTable.setPageIndex(0)}>First Page</Button>
-                    <Button border='2px' colorScheme='gray' onClick={() => partsTable.previousPage()}>Previous Page</Button>
-                    <Button border='2px' colorScheme='gray' onClick={() => partsTable.nextPage()}>Next Page</Button>
+                    <Button border='2px' colorScheme='gray' isDisabled={!partsTable.getCanPreviousPage()} onClick={() => partsTable.previousPage()}>Previous Page</Button>
+                    <Text>Page {partsTable.getState().pagination.pageIndex +1} of {partsTable.getPageCount()} </Text>
+                    <Button border='2px' colorScheme='gray' isDisabled={!partsTable.getCanNextPage()} onClick={() => partsTable.nextPage()}>Next Page</Button>
                     <Button border='2px' colorScheme='gray' onClick={() => partsTable.setPageIndex(partsTable.getPageCount()-1)}>Last Page</Button>
+                    {console.log(`previousPage: ${partsTable.getCanPreviousPage()}`)}
+                    {console.log(`previousPage: ${partsTable.getCanNextPage()}`)}
             </Flex>
         </>
     );
