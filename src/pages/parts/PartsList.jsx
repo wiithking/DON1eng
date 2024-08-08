@@ -95,7 +95,7 @@ export default function PartsList() {
                     colorScheme='purple'
                     onClick={() => {navigate('/partsviewcard')}}
                 >
-                    카드로 보기
+                    카드 보기
                 </Button>
                 
             </Flex>
