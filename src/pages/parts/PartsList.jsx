@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Button from '../../components/ui/Button';
-import { Button, Flex, Input, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Flex, Input, Select, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getParts } from '../../api/firebase';
 import { 
@@ -28,6 +28,7 @@ export default function PartsList() {
     const data = useMemo( () => parts, [parts]);
     const [filtering, setFiltering] = useState('');
     const [sorting, setSorting] = useState([]);
+    // const [filteringCategory, setFilteringCategory] = usestate([]);
 
     const columns = [
         {
@@ -82,6 +83,11 @@ export default function PartsList() {
         onGlobalFilterChange: setFiltering,
     });
 
+    const filteringHandleChange = (e) => {
+        e.preventDefault();
+        setFiltering(e.target.value);
+    }
+
     return (
         <>
             <Flex gap='3' mb='10px'>
@@ -107,12 +113,55 @@ export default function PartsList() {
             {isLoading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
             <Flex alignItems='center' mb='10px'>
-                <Text mr='15px'>Search: </Text>
-                <Input 
-                    type='text'
-                    value={filtering}
-                    onChange={ e => setFiltering(e.target.value)}
-                />
+                <Flex alignItems='center'>
+                    <Text mr='15px'>Search: </Text>
+                    <Input 
+                        type='text'
+                        value={filtering}
+                        onChange={ e => setFiltering(e.target.value)}
+                    />
+                </Flex>
+                <Flex alignItems='center' ml='30px'>
+                    <Text mr='15px'>Category: </Text>
+                    <Select
+                            name='category'
+                            size='sm'
+                            bg='grayy.100'
+                            onChange={filteringHandleChange}
+                    >
+                            <option value=''>--- category ---</option>
+                            <option value='Printer'>Printer</option>
+                            <option value='SideConveyor'>SideConveyor</option>
+                            <option value='FrontConveyor'>FrontConveyor</option>
+                            <option value='Air'>Air</option>
+                            <option value='MOtor'>MOtor</option>
+                            <option value='SwitchButton'>SwitchButton</option>
+                            <option value='SenserWarning'>SenserWarning</option>
+                            <option value='Compressor'>Compressor</option>
+                            <option value='AC'>AC</option>
+                            <option value='Bearing'>Bearing</option>
+                            <option value='Sealing'>Sealing</option>
+                            <option value='etc'>etc</option>
+                    </Select>
+                </Flex>
+                <Flex alignItems='center' ml='30px'>
+                    <Text mr='15px'>Autobag: </Text>
+                        <Select
+                            name='autobagModel'
+                            size='lg'
+                            bg='white'
+                            onChange={filteringHandleChange}
+                            >
+                            <option value=''>--- autobagModel ---</option>
+                            <option value='Common'>Common</option>
+                            <option value='BL-Line'>BL-Line</option>
+                            <option value='BL-P505S'>BL-P505S</option>
+                            <option value='BL-P506S'>BL-P506S</option>
+                            <option value='BL-P506S+'>BL-P506S+</option>
+                            <option value='PACKI-600'>PACKI-600</option>
+                            <option value='DH'>DH</option>
+                        </Select>
+                </Flex>
             </Flex>
         
             <Table 
